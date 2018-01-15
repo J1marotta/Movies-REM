@@ -14,8 +14,7 @@ const router = express.Router();
 //   }
 // }
 
-// router.get('/', authMiddleware.requireJWT, (req, res) => {
-router.get('/', (req, res) => {
+router.get('/', authMiddleware.requireJWT, (req, res) => {
   Movie.find()
     .populate('director')
     .populate('crew.person')

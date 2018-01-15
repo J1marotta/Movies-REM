@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const authMiddleware = require('./middleware/auth');
 
 // Create the app
@@ -11,13 +12,14 @@ app.use(bodyParser.urlencoded());
 app.use(require('express-session')(
   { secret: 'secret', resave: false, saveUninitialized: false }
 ));
+app.use(cors());
 app.use(authMiddleware.initialize);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 // Movies router/controller
 const moviesRouter = require('./routes/movies');
